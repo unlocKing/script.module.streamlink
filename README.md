@@ -58,6 +58,8 @@ It's not automated yet ...
 - remove the `resources/lib/streamlink` folder
 - create a `bdist` or `wheel` of streamlink
 - from the `bdist` unpack the `streamlink` folder to the empty `resources/lib/streamlink`
+- if you use a git folder, run `git add .`
 - run `python replace.py`
+- if you use a git folder, inspect the changes `git status`
 - update `addon.xml`
 - zip the folder
