@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.streamlink" name="Streamlink Library" version="0.12.1.1" provider-name="back-to">
+<addon id="script.module.streamlink" name="Streamlink Library" version="0.12.1.2" provider-name="back-to">
   <requires>
     <import addon="xbmc.python" version="2.24.0"/>
     <import addon="script.module.requests" version="2.18.4"/>
@@ -22,8 +22,13 @@
     <platform>all</platform>
     <license>BSD 2-Clause Simplified License</license>
     <website>https://streamlink.github.io</website>
-    <source>https://github.com/livecli/script.module.livecli</source>
+    <source>https://github.com/back-to/script.module.streamlink</source>
     <news>
+    0.12.1.2
+    - Streamlink version aee97e555971a8995e59f37efb092b694214b5d7
+      with experimental custom commands
+      --hls-session-reload-time
+      --hls-session-reload-segment
     0.12.1.1
     - Streamlink version 1307bc19e5c54d7bd8f6bba0d1c84a736a72c7ba
     </news>

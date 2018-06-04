@@ -5,6 +5,10 @@
 - https://github.com/back-to/repo
 - https://github.com/back-to/repo/raw/master/repository.back-to/repository.back-to-5.0.0.zip
 
+## Guide
+
+- https://liveproxy.github.io/
+
 ## Support
 
 - LiveProxy

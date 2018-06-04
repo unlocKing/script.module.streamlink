@@ -45,6 +45,7 @@ class Streamlink(object):
        options and log settings."""
 
     def __init__(self):
+        self.cached_data = {}
         self.http = api.HTTPSession()
         self.options = Options({
             "hds-live-edge": 10.0,
@@ -79,7 +80,6 @@ class Streamlink(object):
         self.plugins = {}
         self.load_builtin_plugins()
         self._logger = None
-
 
     @property
     def logger(self):
@@ -443,12 +443,13 @@ class Streamlink(object):
         :param path: full path to a directory where to look for plugins
 
         """
-
         for loader, name, ispkg in pkgutil.iter_modules([path]):
             file, pathname, desc = imp.find_module(name, [path])
+            # set the full plugin module name
+            module_name = "streamlink.plugin.{0}".format(name)
 
             try:
-                self.load_plugin(name, file, pathname, desc)
+                self.load_plugin(module_name, file, pathname, desc)
             except Exception:
                 sys.stderr.write("Failed to load plugin {0}:\n".format(name))
                 print_small_exception("load_plugin")
@@ -458,13 +459,18 @@ class Streamlink(object):
     def load_plugin(self, name, file, pathname, desc):
         # Set the global http session for this plugin
         api.http = self.http
+
         module = imp.load_module(name, file, pathname, desc)
 
         if hasattr(module, "__plugin__"):
             module_name = getattr(module, "__name__")
+            plugin_name = module_name.split(".")[-1]  # get the plugin part of the module name
 
             plugin = getattr(module, "__plugin__")
-            plugin.bind(self, module_name)
+            plugin.bind(self, plugin_name)
+
+            if plugin.module in self.plugins:
+                log.debug("Plugin {0} is being overridden by {1}".format(plugin.module, pathname))
 
             self.plugins[plugin.module] = plugin
 
