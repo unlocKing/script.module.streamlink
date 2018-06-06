@@ -45,7 +45,6 @@ class Streamlink(object):
        options and log settings."""
 
     def __init__(self):
-        self.cached_data = {}
         self.http = api.HTTPSession()
         self.options = Options({
             "hds-live-edge": 10.0,
@@ -80,6 +79,7 @@ class Streamlink(object):
         self.plugins = {}
         self.load_builtin_plugins()
         self._logger = None
+
 
     @property
     def logger(self):
